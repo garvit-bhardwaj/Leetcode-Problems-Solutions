@@ -1,0 +1,37 @@
+class Solution {
+public:
+    map<int,set<string>> M;
+    
+    void solve(int n){
+        set<string> s;
+        for(int i=1;i<n;i++){
+            if(!M.count(i)){
+                solve(i);
+            }
+            if(!M.count(n-i)){
+                solve(n-1);
+            }
+            for(auto it:M[i]){
+                for(auto itt:M[n-i]){
+                    string a=it;
+                    string b=itt;
+                    for(int i=0;i<=a.size();i++){
+                        s.insert(a.substr(0,i)+b+a.substr(i,a.size()-i));
+                    }
+                }
+            }
+        }
+        M[n]=s;
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        vector<string> v;
+        M[0].insert("");
+        M[1].insert("()");
+        if(n>1){solve(n);}
+        for(auto it:M[n]){
+            v.push_back(it);
+        }
+        return v;
+    }
+};
