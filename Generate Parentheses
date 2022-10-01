@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void match(vector<string> &v,int pre,int post,string &op){
+        if(pre == 0 && post == 0){
+            v.push_back(op);
+            return;
+        }
+        if(pre != 0){
+            string op1 = op;
+            op1.push_back('(');
+            match(v,pre-1,post,op1);
+        }
+        if(post > pre){
+            string op2 = op;
+            op2.push_back(')');
+            match(v,pre,post-1,op2);
+        }
+        return;
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> v;
+        string op = "";
+        int pre = n,post = n;
+        match(v,pre,post,op);
+        return v;
+    }
+};
