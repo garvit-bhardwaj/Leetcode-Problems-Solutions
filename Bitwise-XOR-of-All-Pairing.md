@@ -14,12 +14,17 @@ public:
         return xr;
     }
     
-    int xorAllNums(vector<int>& a, vector<int>& b) {
-        int xor_a = get_xor(a), xor_b = get_xor(b), n_a = a.size(), n_b = b.size(), xr = 0;
+    int xorAllNums(vector < int >& a, vector < int >& b) {
+
+        int xor_a = get_xor(a), xor_b = get_xor(b);
+        int n_a = a.size(), n_b = b.size(), xr = 0;
+
         if(n_a & 1)
             xr ^= xor_b;
+        
         if(n_b & 1)
             xr ^= xor_a;
+        
         return xr;
     }
 };
