@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        int n = matrix.size(),m = matrix[0].size();
+        int num = min(n,m);
+        if(m == 1 || n == 1){
+            for(int i = 0;i < matrix.size();i++){
+            for(int j = 0;j < matrix[0].size();j++){
+                ans.push_back(matrix[i][j]);
+            }
+        }
+            return ans;
+        }
+        unordered_map<int,int> mp;
+        int low = 0,high = m-1,count = 0;
+        int low2 = 1,high2 = n-1,count2 = m-1;
+        int low3 = m-1,high3 = 0,count3 = n-1;
+        int low4 = n-1,high4 = 1,count4 = 0;
+        for(int i = 0;i < matrix.size();i++){
+            for(int j = 0;j < matrix[0].size();j++){
+                mp[matrix[i][j]]++;
+            }
+        }
+        while(num--){
+            for(int i = low;i <= high;i++){
+                if(mp[matrix[count][i]]){
+                ans.push_back(matrix[count][i]);
+                mp[matrix[count][i]]--;
+                }
+            }
+            for(int i = low2;i <= high2;i++){
+                if(mp[matrix[i][count2]])
+                {
+                ans.push_back(matrix[i][count2]);
+                mp[matrix[i][count2]]--;
+                }
+            }
+            for(int i = low3-1;i >= high3;i--){
+                if(mp[matrix[count3][i]]){
+                ans.push_back(matrix[count3][i]);
+                mp[matrix[count3][i]]--;
+                }
+            }
+            for(int i = low4-1;i >= high4;i--){
+                if(mp[matrix[i][count4]]){
+                ans.push_back(matrix[i][count4]);
+                mp[matrix[i][count4]]--;
+                }
+            }
+            low++,high--,low2++,high2--,low3--,high3++,low4--,high4++;
+            count++,count2--,count3--,count4++;
+        }
+        return ans;
+    }
+};
