@@ -1,0 +1,26 @@
+//C++ Code
+/*
+memo[i]: the index of character we haven't been matched in string (0 ,..., i)
+s[memo[i - 1]]: the closest character we need to match in string (0, ....,  i - 1)
+if s[i] matched with s[memo[i - 1]], we could update memo[i] to next character we need to match that is memo[memo[i - 1] -1]
+if it dosen't match, the closest character we need to match is the current character, so we update memo[i] to i
+
+every iteration we update the max_len
+*/
+int longestValidParentheses(string s) {
+    s = '#' + s;
+    int n = s.size(), max_len = 0;
+    if(n <= 2) return 0;
+    vector<int> memo(n, 0);
+    memo[0] = 0, memo[1] = 1;
+    for(int i = 2; i < n; ++i){
+        if(s[i] == ')' && s[memo[i - 1]] == '('){
+            memo[i] = memo[memo[i - 1] -1]; 
+        }
+        else{
+            memo[i] = i;
+        }
+        max_len = max(max_len, i - memo[i]);
+    }
+    return max_len;
+}
