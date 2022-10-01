@@ -1,0 +1,82 @@
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        
+        if(root->val%2==0)
+            return 0;
+        queue<TreeNode*>q;
+        q.push(root);
+        int level=0;
+        int ok=1;
+        while(q.empty()!=1)
+        {
+            vector<int>arr;
+            int s=q.size();
+            for(int i=0;i<s;i++)
+            {
+                TreeNode*tmp=q.front();
+                q.pop();
+                arr.push_back(tmp->val);
+                
+                if(tmp->left)
+                    q.push(tmp->left);
+                if(tmp->right)
+                    q.push(tmp->right);
+            }
+            // for(auto i:arr)
+            // {
+            //     cout<<i<<" ";
+            // }
+            // cout<<"\n";
+            if(level%2==0)
+            {
+                int i=0;
+               while(i+1<arr.size() && arr[i]<arr[i+1] && arr[i]%2==1 && arr[i+1]%2==1)
+               {
+                   i++;
+               }
+                 if(arr.size()==1)
+                {
+                    if(arr[0]%2==0)
+                    {
+                        ok=0;
+                        break;
+                    }
+                }
+                else if(i!=arr.size()-1)
+                {
+                    ok=0;
+                    break;
+                }
+            }
+            else{
+               // cout<<"FDf\n";
+               ///cout<<level<<"\n";
+                 int i=0;
+               while(i+1<arr.size() && arr[i]>arr[i+1] && arr[i]%2==0 && arr[i+1]%2==0)
+               {
+                   i++;
+               }
+                //cout<<"Gf\n";
+               // cout<<i<<"\n";
+                if(arr.size()==1)
+                {
+                    if(arr[0]%2!=0)
+                    {
+                        ok=0;
+                        break;
+                    }
+                }
+                else  if(i!=arr.size()-1)
+                {
+                    ok=0;
+                    break;
+                }
+                
+            }
+            level++;
+        }
+        
+        return ok;
+    }
+};
