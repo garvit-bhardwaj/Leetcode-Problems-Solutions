@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int sum = 1;
+        vector<int> pre;
+        for(int i = 0;i < nums.size();i++){
+            sum *= nums[i];
+            pre.push_back(sum);
+            // cout << sum << " ";
+        }
+        // cout << endl;
+        int res = 1;
+        vector<int> post;
+        for(int i = nums.size()-1;i >= 0;i--){
+            res *= nums[i];
+            post.push_back(res);
+            // cout << res << " ";
+        }
+        reverse(post.begin(),post.end());
+        vector<int> ans;
+        ans.push_back(post[1]);
+        for(int i = 1;i < nums.size()-1;i++){
+            int s = pre[i-1]*post[i+1];
+            ans.push_back(s);
+        }
+        ans.push_back(pre[nums.size()-2]);
+        return ans;
+    }
+};
