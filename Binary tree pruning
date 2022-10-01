@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int getAns(TreeNode* &root)
+    {
+        if(root==NULL) return 0;
+        int left = getAns(root->left);
+        int right = getAns(root->right);
+        if(root->val+left+right==0) 
+        {
+            root = NULL;
+            return 0;
+        }
+        return root->val+left+right;
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+        int x = getAns(root);
+        return root;
+    }
+};
