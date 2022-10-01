@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void key(vector<vector<char>>& keypad,vector<string>& v,string digits,int index,string s){
+        //base
+        if(index == digits.size()){
+            v.push_back(s);
+            return;
+        }
+        int digit = digits[index] -'0';
+        int len = keypad[digit].size();
+        for(int i = 0;i < len;i++){
+            key(keypad,v,digits,index+1,s+keypad[digit][i]);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.length() == 0){
+            return {};
+        }
+        vector<vector<char>> keypad = {{},{},{'a','b','c'},{'d','e','f'},{'g','h','i'},{'j','k','l'},{'m','n','o'},{'p','q','r','s'},{'t','u','v'},{'w','x','y','z'}};
+        vector<string> v;
+        string s = "";
+        key(keypad,v,digits,0,s);
+        return v;
+    }
+};
