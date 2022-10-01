@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int>ans;
+    void inorder(TreeNode*root,vector<int>&ans,int &k)
+    {
+        if(root==NULL)
+            return ;
+        // if(k==0)
+        //     return;
+       // k-=1;
+        inorder(root->left,ans,k);
+        ans.push_back(root->val);
+      ///  k-=1;
+        inorder(root->right,ans,k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        
+        inorder(root,ans,k);
+        return ans[k-1];
+    }
+};
