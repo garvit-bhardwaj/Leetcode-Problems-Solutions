@@ -1,0 +1,23 @@
+class Solution {
+public:
+     unordered_map<TreeNode*,int>memo;
+    
+    int helper(TreeNode* root){
+        if(!root) return 0;
+        if (memo.count(root)){
+            return memo[root];
+        } 
+        int p = root->left!=NULL? rob(root->left->left) : 0;
+        int q = root->left!=NULL? rob(root->left->right) : 0;
+        int r = root->right!=NULL? rob(root->right->left) : 0;
+        int s = root->right!=NULL? rob(root->right->right) : 0;
+        
+       return memo[root] = max( (root->val + p +q+ r+s) , (rob(root->left) + rob(root->right))) ;
+    }
+    
+    int rob(TreeNode* root) {
+       
+       return  helper(root);
+        
+    }
+};
