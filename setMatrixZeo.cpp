@@ -1,0 +1,22 @@
+class Solution {
+    public void setZeroes(int[][] mat) {
+        int[] row=new int[mat.length];
+        int[] col=new int[mat[0].length];
+        Arrays.fill(row,1);
+         Arrays.fill(col,1);
+        for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                if(mat[i][j]==0){
+                    row[i]=0;
+                    col[j]=0;
+                }
+            }
+        }
+         for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+               if(row[i]==0 || col[j]==0)
+                   mat[i][j]=0;
+            }
+        }
+    }
+}
