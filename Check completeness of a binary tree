@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int CountNode(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        int ans= 1+ CountNode(root->left)+CountNode(root->right);
+        return ans;
+    }
+    bool isCBT(TreeNode* root, int i,int nodeCount){
+        if(root==NULL){
+            return true;
+        }
+        if(i>=nodeCount){
+            return false;
+        }
+        else{
+            bool left= isCBT(root->left, 2*i+1,nodeCount);
+            bool right= isCBT(root->right, 2*i+2, nodeCount);
+            
+            return left&&right;
+        }
+    }
+    bool isCompleteTree(TreeNode* root) {
+        if(root==NULL){
+            return true;
+        }
+        int i=0;
+        int nodeCount= CountNode(root);
+        
+        return isCBT(root, i, nodeCount);
+    }
+};
