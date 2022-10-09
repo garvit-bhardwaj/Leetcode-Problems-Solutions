@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int obs = -prices[0], oss = 0, ocs=0;
+        for(int i = 1; i<size(prices); i++){
+            int nbs = 0, nss = 0, ncs = 0;
+            if(obs < ocs-prices[i]){
+                nbs = ocs-prices[i];
+            }
+            else{
+                nbs = obs;
+            }
+            if(oss < prices[i]+obs){
+                nss = prices[i]+obs;
+            }
+            else{
+                nss = oss;
+            }
+            if(ocs > oss){
+                ncs = ocs;
+            }
+            else{
+                ncs = oss;
+            }
+            obs = nbs;
+            oss = nss;
+            ocs = ncs;
+        }
+        return oss;
+    }
+};
