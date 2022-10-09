@@ -1,0 +1,35 @@
+class Solution {
+    private:
+    int result;
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        result=0;
+        long long sum=0;
+        inorderTraversal(root,targetSum,sum);
+     return result;  
+    }
+    
+    void inorderTraversal(TreeNode* root,int &targetSum,long long &sum)
+    {
+        if(!root)
+            return;
+        result+=fun(root,targetSum,sum);
+        inorderTraversal(root->left,targetSum,sum);
+        inorderTraversal(root->right,targetSum,sum);
+    }
+    int fun(TreeNode* root,int &targetSum,long long sum)
+    { 
+        if(!root)
+            return 0;
+         
+        // Do pre-calculation
+        int ans=0;
+        sum+=root->val;
+            if(targetSum==sum)
+               ans+=1;
+        ans+=fun(root->left,targetSum,sum);
+        ans+=fun(root->right,targetSum,sum);
+        sum-=root->val;
+        return ans;
+    }
+};
