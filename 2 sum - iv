@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void inorder(TreeNode* root, vector<int>&arr){
+        if(!root) return;
+        inorder(root->left, arr);
+        arr.push_back(root->val);
+        inorder(root->right,arr);
+        
+        
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int>arr;
+        inorder(root,arr);
+    int s=0, e= arr.size()-1;
+        while(s<e){
+            if(arr[s]+arr[e]==k) return true;
+            else if(arr[s]+arr[e]<k) s++;
+            else e--;
+        }
+        return false;
+        
+    }
+};
