@@ -1,0 +1,21 @@
+class Solution {
+private:
+    int ans = 0;
+public:
+    void calculate(int n, int ind, vector<bool> &vis){
+        if(ind > n)
+            ans++;
+        for(int i = 1; i <= n; i++){
+            if(!vis[i] && (ind % i == 0 || i % ind == 0)){
+                vis[i] = true;
+                calculate(n, ind + 1, vis);
+                vis[i] = false;
+            }
+        }
+    }
+    int countArrangement(int n) {
+        vector<bool> vis(n+1, false);
+        calculate(n, 1, vis);
+        return ans;
+    }
+};
