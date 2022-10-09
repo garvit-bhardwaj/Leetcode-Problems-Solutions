@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+     bool solve(vector<int>&vis, vector<int>&dfsvis, int i, vector<int>adj[]){
+        
+        vis[i] = 1;
+        dfsvis[i] = 1;
+        
+        for( int v: adj[i]){
+            if( vis[v]==1 && dfsvis[v]==1) return true;
+            if(vis[v]==0){
+                if(solve(vis,dfsvis,v,adj)) return true;
+            }
+        
+        }
+        dfsvis[i]=0;
+        return false;
+    }
+    
+    bool canFinish(int n, vector<vector<int>>& p) {
+        
+        vector<int>adj[n];
+        for(auto i:p){
+            adj[i[0]].push_back(i[1]);
+        }
+        
+        vector<int>vis(n,0);
+        vector<int>dfsvis(n,0);
+        
+        for(int i=0; i<n; i++){
+            if(vis[i]==0)
+            if(solve(vis,dfsvis, i, adj)) return false;
+        }
+        
+        return true;
+        
+    }
+};
