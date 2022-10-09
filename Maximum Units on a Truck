@@ -1,0 +1,26 @@
+class Solution {
+    public:
+    static bool check(const vector<int> &v1,const vector<int> &v2){
+    return v1[1]>v2[1];
+    }
+public:
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        int totalUnit=0,i=0;
+         sort(boxTypes.begin(),boxTypes.end(),check);
+         
+            while(truckSize>0 && i<boxTypes.size()){
+                if(boxTypes[i][0]<=truckSize){
+                     totalUnit += boxTypes[i][0] * boxTypes[i][1];
+                truckSize -= boxTypes[i][0];
+                }
+                 else{
+                
+                int res = truckSize;
+                truckSize -= res; 
+                totalUnit += res * boxTypes[i][1]; 
+            }
+                i++;
+            }
+        return totalUnit;
+    }
+};
