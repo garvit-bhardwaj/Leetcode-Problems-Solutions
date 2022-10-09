@@ -1,0 +1,31 @@
+class Solution {
+    public int[] searchRange(int[] nums, int tar) {
+        
+        int l=0,h=nums.length-1,mid=0;
+        boolean bool=false;
+        int ans[]=new int[2];
+        while(l<=h){
+             mid=(l+h)/2;
+            if(nums[mid]>tar) h=mid-1;
+            if(nums[mid]<tar) l=mid+1;
+            else if(nums[mid]==tar){
+               if(mid!=0 && nums[mid]==nums[mid-1])
+                   h=mid-1;
+                else{
+                    ans[0]=mid;
+                    bool=true;
+                    break;
+                }
+            }
+        }
+        if(bool){
+            while(mid<nums.length && nums[mid]==tar)
+                mid++;
+            ans[1]=mid-1;
+        }
+        else{
+            ans[0]=ans[1]=-1;
+        }
+        return ans;
+    }
+}
