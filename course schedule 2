@@ -1,0 +1,52 @@
+class Solution {
+public:
+//     void dfs(vector<int>&topo,vector<int> adj[], int i,  vector<int>&vis ){
+	    
+// 	    for(auto v:adj[i]){
+// 	    if(vis[v]==0)
+// 	    dfs(topo,adj,v,vis);
+        	        
+// 	    }
+// 	    vis[i] = 1;
+// 	    topo.push_back(i);
+// 	}
+
+    bool solve(vector<int>&vis, vector<int>&dfsvis, vector<int>&topo, int i, vector<int>adj[]){
+        
+        vis[i] = 1;
+        dfsvis[i] = 1;
+        
+        for( int v: adj[i]){
+            if( vis[v]==1 && dfsvis[v]==1) return true;
+            if(vis[v]==0){
+                if(solve(vis,dfsvis,topo,v,adj)) return true;
+            }
+        
+        }
+         topo.push_back(i);
+        dfsvis[i]=0;
+        return false;
+    }
+    
+    vector<int> findOrder(int V, vector<vector<int>>& p) {
+        
+        vector<int>adj[V];
+        for(auto i:p){
+            adj[i[0]].push_back(i[1]);
+        }
+        
+        vector<int>topo;
+	    vector<int>vis(V,0);
+         vector<int>dfsvis(V,0);
+	    
+	    for(int i=0; i<V;i++)
+	    if(vis[i]==0){
+	    if(solve(vis,dfsvis,topo,i,adj)) return {};
+         }
+        return topo;
+        }
+        
+        
+	   
+    
+};
