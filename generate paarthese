@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list=new ArrayList<>();
+        int open=n,close=n;
+        balanced(open,close,list,"");
+            return list;
+    }
+    public void balanced(int o,int c,List<String> list,String str){
+        if(o==0 && c==0){
+            list.add(str);
+            return;
+        }
+         if(o!=0)
+         balanced(o-1,c,list,str+"(");
+         if(o!=c || o==0)
+         balanced(o,c-1,list,str+")");
+    }
+}
