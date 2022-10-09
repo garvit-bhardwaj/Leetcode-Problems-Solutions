@@ -1,0 +1,24 @@
+class Solution {
+public:
+     vector<vector<int>> finalans;
+    void abc(TreeNode* root, int targetSum,vector<int> &ans){
+        if(!root){
+            return;
+        }
+        if(root and !root->left and !root->right and root->val== targetSum){
+            ans.push_back(root->val);
+            finalans.push_back(ans);
+            ans.pop_back();
+            return;
+        }
+        ans.push_back(root->val);
+        abc(root->left, targetSum - (root->val), ans);
+        abc(root->right, targetSum - (root->val), ans);
+       ans.pop_back();
+    }
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<int> ans;
+        abc(root,targetSum,ans);
+        return finalans;
+    }
+};
