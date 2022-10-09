@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumDeviation(vector<int>& nums) {
+        int ans = INT_MAX;
+        set< pair<int,int> > ord;
+        
+        for(int &value: nums){
+            
+            int small=value;
+            int big = value%2==0?value:value*2;
+            
+            while(small%2==0) small/=2;
+            ord.insert( {small,big} );
+        }
+        ans=ord.rbegin()->first - ord.begin()->first;
+        while(ord.begin()->first < ord.begin()->second){
+            ord.insert( {ord.begin()->first*2, ord.begin()->second} );
+            ord.erase(ord.begin() );
+            ans = min(ans, ord.rbegin()->first - ord.begin()->first);
+        }
+        return ans;
+        
+    }
+};
