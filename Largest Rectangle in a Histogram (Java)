@@ -1,0 +1,44 @@
+/*Problem statement:
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+Example:
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+*/
+
+//Solution-
+
+class Solution {
+    public int largestRectangleArea(int[] h) {
+        int res=0;
+        int n=h.length;
+        int ls[]=new int[n];
+        int rs[]= new int[n];
+        Stack<Integer> st= new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty()&&h[st.peek()]>=h[i])
+                st.pop();
+            if(st.isEmpty())
+                ls[i]=0;
+            else
+                ls[i]=st.peek()+1;
+            st.push(i);
+        }
+        
+          while(!st.isEmpty())
+              st.pop();
+              for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty()&&h[st.peek()]>=h[i])
+                st.pop();
+            if(st.isEmpty())
+                rs[i]=n-1;
+            else
+                rs[i]=st.peek()-1;
+                  st.push(i);
+           res=Math.max(res,(rs[i]-ls[i]+1)*h[i]);
+        }
+        
+        return res;
+    }
+}
