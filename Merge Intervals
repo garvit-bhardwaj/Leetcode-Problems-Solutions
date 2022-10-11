@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(),intervals.end());
+        int i=0;
+        vector<vector<int>>t;
+        while(i<intervals.size())
+        {
+            int j=i+1,e=intervals[i][1],s=intervals[i][0];
+            vector<int>v;
+            while(j<intervals.size() and intervals[j][0]<=e)
+            {
+                e=max(e,intervals[j][1]);
+                j++;
+                i=j-1;
+            }
+            v.push_back(s);
+            v.push_back(e);
+            t.push_back(v);
+            i++;
+        }
+        return t;
+    }
+};
