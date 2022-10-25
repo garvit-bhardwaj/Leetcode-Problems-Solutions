@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string shortestPalindrome(string s) {
+        if(s.empty())
+            return "";
+        bool f=true;
+        for(int i=0;i<s.size()/2;i++)
+            if(s[i]!=s[s.size()-i-1])
+            {
+                f=false;
+                break;
+            }
+        if(f)
+            return s;
+        string p=s;
+        reverse(p.begin(),p.end());
+        string x=s+"#"+p;
+        int dp[500005]={0},i=1,l=0;
+        while(i<x.size())
+        {
+            if(x[i]==x[l])
+            {
+                dp[i++]=++l;
+            }
+            else
+            {
+                if(l!=0)
+                    l=dp[l-1];
+                else
+                    dp[i++]=0;
+            }
+        }
+        
+        for(int i=0;i<x.size();i++)
+            cout<<dp[i]<<" ";
+        cout<<endl;
+        p=s.substr(dp[x.size()-1]);
+        reverse(p.begin(),p.end());
+        cout<<p<<" "<<endl;
+        return p+s;
+    }
+};
