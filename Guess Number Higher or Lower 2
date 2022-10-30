@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int money(int i, int j, int dp[][201])
+    {
+        if(i>=j)
+            return 0;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int l=INT_MAX;
+       for(int k=i;k<=j;k++)
+       {
+           l=min(l,k+max(money(i,k-1,dp),money(k+1,j,dp)));
+       }
+        return dp[i][j]=l;
+    }
+    int getMoneyAmount(int n) {
+        int dp[201][201];
+        memset(dp,-1,sizeof(dp));
+        return money(0,n,dp);
+    }
+};
